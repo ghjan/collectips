@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'collectips.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'collectips (+http://www.yourdomain.com)'
-User_Agent = 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
