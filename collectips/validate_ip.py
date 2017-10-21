@@ -14,7 +14,6 @@ User_Agent = 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:43.0) Gecko/20100101 Firefo
 header = {}
 header['User-Agent'] = User_Agent
 
-
 url_1 = r"http://ip.chinaz.com/getip.aspx"
 url_2 = r'http://httpbin.org/ip'
 url_3 = r'http://python.org/'
@@ -30,6 +29,7 @@ def getProxyIp():
         try:
             url = 'http://www.xicidaili.com/nn/' + str(i)
             req = urllib.request.Request(url, headers=header)
+
             res = urllib.request.urlopen(req).read()
             soup = BeautifulSoup(res)
             ips = soup.findAll('tr')
@@ -48,6 +48,7 @@ def getProxyIp():
 验证获得的代理IP地址是否可用
 '''
 
+
 def validateIp(proxy):
     f = open("ip.txt", "w")
     socket.setdefaulttimeout(3)
@@ -55,8 +56,7 @@ def validateIp(proxy):
         try:
             ip = proxy[i].strip().split("\t")
             proxy_ip_port = "http://" + ip[0] + ":" + ip[1]
-            res = _get_data_withproxy(url_1, proxy_ip_port, data=None)
-            print("good proxy:{}".format(proxy[i]))
+            _get_data_withproxy(url_1, proxy_ip_port, data=None)
             f.write(proxy_ip_port + '\n')
         except Exception as e:
             continue
