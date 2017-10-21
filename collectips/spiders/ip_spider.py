@@ -10,7 +10,7 @@ class IpSpiderSpider(scrapy.Spider):
 
     def start_requests(self):
         reqs = []
-        for i in range(1, 206):
+        for i in range(1, 3):
             req = scrapy.Request("http://www.xicidaili.com/nn/{}".format(i))
             reqs.append(req)
         return reqs
