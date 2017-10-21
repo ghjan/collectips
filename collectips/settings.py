@@ -40,8 +40,8 @@ ROBOTSTXT_OBEY = True
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en',
 }
 
 # Enable or disable spider middlewares
@@ -52,9 +52,10 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'collectips.middlewares.MyCustomDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 543,
+    'collectips.middlewares.ProxyMiddleware': 100,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -97,3 +98,18 @@ MYSQL_USER = 'root'  # 数据库账号，请修改
 MYSQL_PASSWD = 'DavidZhang=123456'  # 数据库密码，请修改
 
 MYSQL_PORT = 3306  # 数据库端口，在dbhelper中使用
+
+IPPOOL = [{'ipaddr': '113.226.207.134:80'},
+          {'ipaddr': '112.255.225.238:8118'},
+          {'ipaddr': '220.166.243.12:8118'},
+          {'ipaddr': '120.27.131.204:3128'},
+          {'ipaddr': '118.114.77.47:8080'},
+          {'ipaddr': '61.135.217.7:80'},
+          {'ipaddr': '27.159.124.191:8118'},
+          {'ipaddr': '111.222.0.221:80'},
+          {'ipaddr': '111.155.116.208:8123'},
+          {'ipaddr': '121.31.156.92:8123'},
+          {'ipaddr': '118.122.110.62:8118'},
+          {'ipaddr': '114.235.83.2:8118'},
+          {'ipaddr': '123.185.131.48:8080'},
+          ]

@@ -51,15 +51,18 @@ def getProxyIp():
 
 def validateIp(proxy):
     f = open("ip.txt", "w")
+    f.write("IPPOOL=[")
     socket.setdefaulttimeout(3)
+
     for i in range(0, len(proxy)):
         try:
             ip = proxy[i].strip().split("\t")
             proxy_ip_port = "http://" + ip[0] + ":" + ip[1]
             _get_data_withproxy(url_1, proxy_ip_port, data=None)
-            f.write(proxy_ip_port + '\n')
+            f.write("{'ipaddr':'" + ip[0] + ":" + ip[1] + "'},\n")
         except Exception as e:
             continue
+    f.write("]")
     f.close()
 
 

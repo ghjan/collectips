@@ -54,3 +54,27 @@ class CollectipsSpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+import random
+from collectips.settings import IPPOOL
+
+
+class ProxyMiddleware(object):
+    # overwrite process request
+
+    def process_request(self, request, spider):
+        # Set the location of the proxy
+        thisip = random.choice(IPPOOL)
+        print("this is ip:" + thisip["ipaddr"])
+        request.meta["proxy"] = "http://" + thisip["ipaddr"]
+
+        # Use the following lines if your proxy requires authentication
+
+        # proxy_user_pass = "USERNAME:PASSWORD"
+
+        # setup basic authentication for the proxy
+
+        # encoded_user_pass = base64.encodestring(proxy_user_pass)
+
+        # request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass
