@@ -2,6 +2,8 @@
 import scrapy
 from collectips.items import CollectipsItem
 
+import random
+
 
 class IpSpiderSpider(scrapy.Spider):
     name = 'ip_spider'
@@ -17,8 +19,10 @@ class IpSpiderSpider(scrapy.Spider):
 
     def start_requests(self):
         reqs = []
-        for i in range(1, 3):
-            req = scrapy.Request("http://www.xicidaili.com/nn/{}".format(i))
+
+        for i in range(1, 10):
+            nn = random.randint(1, 2400)
+            req = scrapy.Request("http://www.xicidaili.com/nn/{}".format(nn))
             reqs.append(req)
         return reqs
 
