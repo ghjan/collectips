@@ -56,7 +56,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware': 50,
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 60,
     'collectips.middlewares.ProxyMiddleware': 100,
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 543,
+    # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 543,
 }
 
 # Enable or disable extensions
