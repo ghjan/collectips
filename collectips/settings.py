@@ -25,12 +25,12 @@ ROBOTSTXT_OBEY = False
 # CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
-# See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
+# See https://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
-# CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_IP = 4
 
 # Disable cookies (enabled by default)
 # COOKIES_ENABLED = False
@@ -71,17 +71,17 @@ ITEM_PIPELINES = {
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
-# See http://doc.scrapy.org/en/latest/topics/autothrottle.html
-# AUTOTHROTTLE_ENABLED = True
+# See https://docs.scrapy.org/en/latest/topics/autothrottle.html
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-# AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
-# AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 60
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-# AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+AUTOTHROTTLE_TARGET_CONCURRENCY = 3
 # Enable showing throttling stats for every response received:
-# AUTOTHROTTLE_DEBUG = False
+AUTOTHROTTLE_DEBUG = False
 
 # Enable and configure HTTP caching (disabled by default)
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
@@ -99,17 +99,4 @@ MYSQL_PASSWD = 'DavidZhang=123456'  # 数据库密码，请修改
 
 MYSQL_PORT = 3306  # 数据库端口，在dbhelper中使用
 
-IPPOOL = [{'ipaddr': '113.226.207.134:80'},
-          {'ipaddr': '112.255.225.238:8118'},
-          {'ipaddr': '220.166.243.12:8118'},
-          {'ipaddr': '120.27.131.204:3128'},
-          {'ipaddr': '118.114.77.47:8080'},
-          {'ipaddr': '61.135.217.7:80'},
-          {'ipaddr': '27.159.124.191:8118'},
-          {'ipaddr': '111.222.0.221:80'},
-          {'ipaddr': '111.155.116.208:8123'},
-          {'ipaddr': '121.31.156.92:8123'},
-          {'ipaddr': '118.122.110.62:8118'},
-          {'ipaddr': '114.235.83.2:8118'},
-          {'ipaddr': '123.185.131.48:8080'},
-          ]
+IPPOOL = None

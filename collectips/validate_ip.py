@@ -50,7 +50,7 @@ def getProxyIp():
 
 
 def validateIp(proxy):
-    f = open("ip.txt", "w")
+    f = open("ipadd.py", "w")
     f.write("IPPOOL=[")
     socket.setdefaulttimeout(3)
 
