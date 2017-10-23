@@ -59,31 +59,39 @@ class CollectipsSpiderMiddleware(object):
 import random
 from collectips.settings import IPPOOL
 from collectips.ipadd import IPPOOL_BACKUP
+from collectips.utils.dbhelper import DBHelp
 
 
 class ProxyMiddleware(object):
     # overwrite process request
 
     def process_request(self, request, spider):
+        print("type of request:{}".format(request))
         # Set the location of the proxy
         if IPPOOL is None:
-            from collectips.utils.dbhelper import DBHelp
             sql = "select ip, port, `type` from ips"
             DBHelp().query(sql, self.after_queryips, request=request)
         else:
             self.after_queryips(None, request=request)
 
     def after_queryips(self, rs, request=None):
+        from collectips.settings import IPPOOL
         if rs:
+            if IPPOOL is None:
+                IPPOOL = []
             for r in rs:
-                url_ = r[2] + '//' + r[0] + ':' + r[1]
-                IPPOOL.append(url_)
+                try:
+                    url_ = r['type'].decode('utf-8') + '//' + r['ip'].decode('utf-8') + ':' + r['port'].decode('utf-8')
+                    IPPOOL.append(url_)
+                except Exception as e:
+                    print("r:{}".format(r))
+                    print(e)
         if not IPPOOL:
-            thisip = 'http://' + random.choice(IPPOOL_BACKUP)
+            thisip = 'http://' + random.choice(IPPOOL_BACKUP)["ipaddr"]
         else:
             thisip = random.choice(IPPOOL)
-        print("this is ip:" + thisip["ipaddr"])
+        print("this is ip:" + thisip)
         if request:
-            request.meta["proxy"] = thisip["ipaddr"]
+            request['request'].meta["proxy"] = thisip
         else:
             print("Exception, request is None?!!!")
