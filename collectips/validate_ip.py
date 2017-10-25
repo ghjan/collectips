@@ -2,8 +2,8 @@
 import urllib.request
 
 import urllib.parse
-import http.cookiejar
-import re
+
+import random
 
 from bs4 import BeautifulSoup
 import urllib
@@ -14,9 +14,11 @@ User_Agent = 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:43.0) Gecko/20100101 Firefo
 header = {}
 header['User-Agent'] = User_Agent
 
-url_1 = r"http://ip.chinaz.com/getip.aspx"
-url_2 = r'http://httpbin.org/ip'
-url_3 = r'http://python.org/'
+URLS = [
+    r"http://ip.chinaz.com/getip.aspx"
+    r'http://httpbin.org/ip'
+    r'http://python.org/'
+]
 
 '''''
 获取所有代理IP地址
@@ -36,7 +38,7 @@ def getProxyIp():
             for x in range(1, len(ips)):
                 ip = ips[x]
                 tds = ip.findAll("td")
-                ip_temp = tds[1].contents[0] + "\t" + tds[2].contents[0]
+                ip_temp = tds[5].contents[0] + "\t" + tds[1].contents[0] + "\t" + tds[2].contents[0]
                 proxy.append(ip_temp)
         except Exception as e:
             print(e)
@@ -50,24 +52,25 @@ def getProxyIp():
 
 
 def validateIp(proxy):
-    f = open("ipadd.py", "w")
-    f.write("IPPOOL=[")
     socket.setdefaulttimeout(3)
-
+    validated_proxy_http = []
+    validated_proxy_https = []
     for i in range(0, len(proxy)):
         try:
             ip = proxy[i].strip().split("\t")
-            proxy_ip_port = "http://" + ip[0] + ":" + ip[1]
-            _get_data_withproxy(url_1, proxy_ip_port, data=None)
-            f.write("{'ipaddr':'" + ip[0] + ":" + ip[1] + "'},\n")
+            type = ip[0].strip().lower()
+            proxy_ip_port = type + '://' + ip[1] + ":" + ip[2]
+            url_ = URLS[random.randint(0, len(URLS) - 1)]
+            _get_data_withproxy(url_, type=type, proxy_ip_port=proxy_ip_port, data=None)
+            validated_proxy_http.append(proxy_ip_port) if type == 'http' else validated_proxy_https.append(
+                proxy_ip_port)
         except Exception as e:
             continue
-    f.write("]")
-    f.close()
+    return validated_proxy_http, validated_proxy_https
 
 
-def _get_data_withproxy(url, proxy_ip_port=None, data=None):
-    proxy = urllib.request.ProxyHandler({'http': proxy_ip_port})  # 设置proxy
+def _get_data_withproxy(url, type='http', proxy_ip_port=None, data=None):
+    proxy = urllib.request.ProxyHandler({type: proxy_ip_port})  # 设置proxy
     opener = urllib.request.build_opener(proxy)  # 挂载opener
     urllib.request.install_opener(opener)  # 安装opener
     if data:
@@ -87,8 +90,10 @@ def _get_data(url):
 
 
 if __name__ == '__main__':
-    page = _get_data(url_1)
+    # page = _get_data(url_1)
     proxy = getProxyIp()
     print("proxy:{}".format(proxy))
     if proxy:
-        validateIp(proxy)
+        validated_proxy_http, validated_proxy_https = validateIp(proxy)
+        print("validated_proxy_http:{}, validated_proxy_https:{}".format(len(validated_proxy_http),
+                                                                         len(validated_proxy_https)))
