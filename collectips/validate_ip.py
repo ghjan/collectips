@@ -15,9 +15,9 @@ header = {}
 header['User-Agent'] = User_Agent
 
 URLS = [
-    r"http://ip.chinaz.com/getip.aspx"
-    r'http://httpbin.org/ip'
-    r'http://python.org/'
+    r"http://ip.chinaz.com/getip.aspx",
+    r'http://httpbin.org/ip',
+    r'http://python.org/',
 ]
 
 '''''

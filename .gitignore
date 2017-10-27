@@ -1,4 +1,7 @@
 .idea/*
 *.pyc
-tutorial/__pycache__/*
-tutorial/spiders/__pycache__/*
+build/*
+project.egg-info/
+setup.py
+*/__pycache__/*
+*/spiders/__pycache__/*
